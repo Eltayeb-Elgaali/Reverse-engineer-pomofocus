@@ -1,0 +1,298 @@
+'use strict';
+
+
+import { logger } from '../lib/logger.js';
+
+export class Timer{
+
+    intervalId = null;
+    intervalSeconds = 1000;
+    isStarted = false;
+    timerType = 'pomodoro';
+
+
+constructor(currentTimeInput, startStopButton, pomodoroButton, shortBreakButton, longBreakButton, body,timerTypeLabel){
+
+    this.currentTimeInput = currentTimeInput;
+    
+    this.startStopButton = startStopButton;
+    this.pomodoroButton = pomodoroButton;
+    this.shortBreakButton = shortBreakButton;
+    this.longBreakButton = longBreakButton;
+    this.body = body;
+    this.timerTypeLabel = timerTypeLabel;
+
+        
+        this.startStopButton.addEventListener('click', this.check);
+        
+        this.pomodoroButton.addEventListener('click', this.pomodoro);
+        this.shortBreakButton.addEventListener('click', this.shortBreak);
+        this.longBreakButton.addEventListener('click', this.longBreak);
+
+    
+
+   
+    
+ }
+check = () => {
+    const startStopSound = new Audio('../public/assets/sounds/Finger-snap.mp3');
+    startStopSound.play();
+
+    if(!this.isStarted){
+        this.start();
+        this.isStarted = !this.isStarted;
+    }
+    else{
+        this.stop();
+        this.isStarted = !this.isStarted;
+    }
+}
+
+ start = () => {
+    this.tik();
+     this.intervalId = setInterval(this.tik, this.intervalSeconds)
+     this.onStart();
+ };
+
+
+ stop = () => {
+
+    clearInterval(this.intervalId);
+    if(this.timeLeft > 0){
+        this.onStop();
+    }
+       
+    
+ };
+
+ // cb function to be called every intervalSeconds
+ tik = () => {
+     if(this.timeLeft <= 0){
+         this.stop();
+         this.onComplete();
+         
+     } else{
+     this.timeLeft = this.timeLeft - 1;
+    
+     this.onTik();
+     
+    }
+ }
+
+ //getter to retrieve timeLeft value
+  get timeLeft(){
+     return this.getSeconds(this.currentTimeInput.value);
+    
+ }
+
+ //setter to update timeLeft value
+ set timeLeft(time){
+      this.currentTimeInput.value = this.renderTime(time);
+ }
+ 
+
+
+// action(s) will be done when timer started
+onStart() {
+    console.log('timer has been started');
+    
+        this.startStopButton.innerText = 'Stop';
+        this.startStopButton.classList.remove('start')
+        this.startStopButton.classList.add('stop');
+
+        const today = new Date();
+        const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        
+        logger
+          .push({
+            action: 'click start',
+            startedAt: time,
+            started: this.isStarted,
+            typeOfTimer: this.timerType
+          });
+        
+   
+} 
+
+// action(s) will be done when timer tikking
+onTik(){
+    
+    console.log('timer tikking')
+}
+
+// action(s) will be done when timer stopped
+onStop(){
+    console.log('timer stopped')
+   
+        this.startStopButton.innerText = 'Start';
+        this.startStopButton.classList.remove('stop')
+        this.startStopButton.classList.add('start');
+
+        const today = new Date();
+        const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        logger
+        .push({
+          action: 'click stop',
+          stoppedAt: time ,
+          started: this.isStarted,
+          typeOfTimer: this.timerType
+          
+        });
+       
+
+}
+
+
+// action(s) will be done when timer completed
+onComplete(){
+    console.log('timer completed');
+
+    const completedSound = new Audio('../public/assets/sounds/Clock-ringing.mp3');
+    completedSound.play();
+    if(this.timerType !== 'pomodoro') {
+        this.pomodoro();
+
+        this.onStop();
+    }
+    else{
+        this.shortBreak();
+        this.onStop();
+    }
+
+    const today = new Date();
+    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+    logger
+    .push({
+      action: 'timer completed',
+      completedAt: time ,
+      started:this.isStarted,
+      typeOfTimer: this.timerType
+    });
+}
+
+
+ renderTime =(duration) =>
+        {   
+    //  minutes and seconds
+    
+    let mins = Math.floor((duration % 3600) / 60);
+    let secs = Math.floor(duration % 60);
+
+    //  "1:01"
+    let strTime = "";
+
+    strTime += (mins < 10 ? "0" : "")
+    strTime += "" + mins + ":" + (secs < 10 ? "0" : "");
+    strTime += "" + secs;
+    return strTime;
+     }
+
+getSeconds(str){
+    const srtArr = str.split(':');
+    const seconds = parseInt(srtArr[0]) * 60  + parseInt(srtArr[1]);
+    return seconds;
+         }
+
+
+
+    pomodoro = () =>{
+        this.stop();
+        this.isStarted = false;
+        this.timerType = 'pomodoro';
+
+        this.body.classList.add("pomodoro");
+        this.body.classList.remove('short-break');
+        this.body.classList.remove('long-break');
+        this.pomodoroButton.classList.add('pomodoro-btn');
+
+        this.pomodoroButton.classList.remove('reset');
+       
+        this.shortBreakButton.classList.add('reset');
+        this.longBreakButton.classList.add('reset');
+        this.currentTimeInput.value = '25:00';
+        this.timerTypeLabel.innerText = 'Time to work!';
+
+
+        const today = new Date();
+        const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+        logger
+        .push({
+          action: 'click on timer',
+          stoppedAt: time ,
+          started: this.isStarted,
+          typeOfTimer: this.timerType
+          
+        });
+       
+
+        
+
+    }
+
+    shortBreak = () => {
+        this.stop();
+        this.isStarted = false;
+
+        this.timerType = 'shortBreak';
+
+        this.body.classList.add('short-break');
+        this.body.classList.remove('pomodoro');
+        this.body.classList.remove('long-break');
+        this.shortBreakButton.classList.add('short-break-btn');
+
+        this.shortBreakButton.classList.remove('reset');
+
+        this.pomodoroButton.classList.add('reset');
+        this.longBreakButton.classList.add('reset');
+        this.currentTimeInput.value = '05:00';
+        this.timerTypeLabel.innerText = 'Time for a break';
+
+        const today = new Date();
+        const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+        logger
+        .push({
+          action: 'click on timer',
+          stoppedAt: time ,
+          started: this.isStarted,
+          typeOfTimer: this.timerType
+          
+        });
+
+    }
+
+    longBreak = () => {
+        this.stop();
+        this.isStarted = false;
+
+        this.timerType = 'longBreak';
+
+        this.body.classList.add('long-break');
+        this.body.classList.remove('pomodoro');
+        this.body.classList.remove('short-break');
+        this.longBreakButton.classList.add('long-break-btn');
+
+        this.longBreakButton.classList.remove('reset');
+
+        this.pomodoroButton.classList.add('reset');
+        this.shortBreakButton.classList.add('reset');
+        this.currentTimeInput.value = '15:00';
+        this.timerTypeLabel.innerText = 'Time for a break';
+
+        const today = new Date();
+        const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+        logger
+        .push({
+          action: 'click on timer',
+          stoppedAt: time,
+          started: this.isStarted,
+          typeOfTimer: this.timerType
+          
+        });
+
+    }
+
+}
