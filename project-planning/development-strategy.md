@@ -152,15 +152,26 @@ __As a user I want to be able to start timer and focus on the task for 25 minute
 - This user story is developed on branch `start-stop-timer`.
 - This branch is merged to `master` branch after completion.
 
+### HTML
+- Add buttons and textbox
+
+### CSS
+- Add some styling
+
 ### JS
+- Add timer script that contain timer class
+- update init script
 
 #### DATA
 
 #### LISTENER
+- Add listeners for start-stop, pomodoro, short brak and long break buttons.
 
 #### HANDLER
+- add start-stop, pomodoro, short brak and long break handlers
 
-#### WIEW
+### Assets
+- Add sounds directory and sound files.
 
 ---
 
