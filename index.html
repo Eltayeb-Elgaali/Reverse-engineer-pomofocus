@@ -14,6 +14,27 @@
   <h1>Pomofocus</h1>
 
 
+  <div id='root'>
+    <div id="container">
+      
+      <div id="upper">
+       
+        <div id="interaction">
+          <div id="timer-type-buttons">
+            <button id="pomodoro-btn" class="pompdoro-btn">Pomodoro</button>
+            <button id="short-break-btn" class="reset">Short Break</button>
+            <button id="long-break-btn" class="reset">Long Break</button>
+          </div>
+          <div id="time-div">
+            <input type="text" id="duration" value = '25:00' readonly>
+            <button id="start-stop" class="start">Start</button>
+          </div>
+        </div>
+      </div>
+      <div id="timer-type-label"></div>
+     </div>
+  </div>
+
   <!-- load the frontend testing & reviewing dependencies -->
   <script src='./lib/review-buttons.js' type='module'></script>
   <script src='./lib/gremlins.js'></script>
