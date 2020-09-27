@@ -1,0 +1,22 @@
+body{
+    background-color: #F05B56;
+}
+
+/* navbar */
+
+span{
+    color: #FFFFFF;
+}
+
+.fa-check-circle{
+    color: #FFFFFF;
+}
+
+#pbar {
+    border-bottom: solid black 0.5px;
+    margin: 0 auto;
+    height: 20px;
+    margin-bottom: 20px;
+    width: 40%;
+    min-width: 260px;
+}

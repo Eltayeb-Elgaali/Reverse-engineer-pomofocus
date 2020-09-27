@@ -37,16 +37,11 @@ __As a user I want to see the initial page when I load the site__
 - This user story is developed on branch `initial-application`.
 - This branch is merged to `master` branch after completion.
 
-### JS
+### HTML
+- Add a `nav` element
 
-#### DATA
-
-#### LISTENER
-
-#### HANDLER
-
-#### WIEW
-
+#### CSS
+- Add some styling
 ---
 
 ## 2. User Story: Add task
