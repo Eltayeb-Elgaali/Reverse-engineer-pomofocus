@@ -57,13 +57,15 @@ __As a user I want to be able to add tasks to work on today and also set estimat
 
 ### JS
 
-#### DATA
+- Add Task class
 
-#### LISTENER
+## HTML
 
-#### HANDLER
+- Add task-container div
 
-#### WIEW
+## CSS
+
+- Add some styling.
 
 ---
 
