@@ -4,7 +4,7 @@ body{
 
 /* navbar */
 
-span{
+nav{
     color: #FFFFFF;
 }
 
@@ -24,7 +24,7 @@ span{
 #upper {
     width: 30%;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.1);;
+    background: rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 3px rgba(0,0,0, 0.1);
     border-radius: 6px;
     padding: 20px 0 30px;
@@ -107,3 +107,64 @@ button:focus {
     box-shadow: none;
   }
 
+#task-container {
+    width: 30%;
+    margin: 0 auto;
+    
+    box-shadow: 0 0 3px rgba(0,0,0, 0.1);
+    border-radius: 6px;
+    padding: 20px 0 30px;
+    margin-bottom: 20px;
+    min-width: 260px;
+    
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+li{
+    background: #FFFFFF;
+    height: 40px;
+    line-height: 40px;
+    color: #666;
+    margin-bottom: 6px;
+    text-align: left;
+    border-radius: 3px;
+}
+
+span{
+    background-color: #e74c3c;
+    height: 40px;
+    margin-right: 20px;
+    text-align: center;
+    color: white;
+    width: 0;
+    display: inline-block;
+    transition: 0.2s linear;
+    opacity: 0;
+}
+
+input{
+    font-size: 16px;
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+    box-sizing: border-box;
+    border: 1px dashed #000000;
+    background-color:  #F05B56;
+    text-align: center;
+    border-radius: 3px;
+    
+}
+
+input:focus {
+    color: #FFFFFF;
+    outline: none;
+}
+
+li:hover span{
+    width: 40px;
+    opacity: 1.0;
+}
