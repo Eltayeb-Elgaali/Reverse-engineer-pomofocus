@@ -82,13 +82,17 @@ __As a user I want to be able to toggle a task as done__
 
 ### JS
 
-#### DATA
-
 #### LISTENER
+
+- Attach a listener to ´li´ element
 
 #### HANDLER
 
-#### WIEW
+- Add toggleHandler function
+
+## CSS
+
+- Add complete class
 
 ---
 
