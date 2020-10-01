@@ -27,7 +27,13 @@ render = () => {
   iEl.classList.add('fa-trash-alt');
   spanEl.appendChild(iEl)
   liEl.appendChild(spanEl);
-liEl.innerHTML+= `<i class="fas fa-check-circle" style="color:rgb(223,223,223)"></i> ${this.newtask.text}`;
+  const iCheck = document.createElement('i');
+  iCheck.classList.add('fas');
+  iCheck.classList.add('fa-check-circle');
+  
+  liEl.appendChild(iCheck);
+liEl.innerHTML+=  ` ${this.newtask.text}`;
+liEl.addEventListener('click', this.toggleHandler);
   
 return liEl;
 
@@ -37,10 +43,12 @@ return liEl;
 
 
 addTaskHandler = (event) => {
+  
  if(event.keyCode !== 13) return;
 this.newtask.text = event.target.value;
 
 this.tasks.push(this.newtask);
+debugger;
  const liEl = this.render();
  document.querySelector('#task-root').firstElementChild.appendChild(liEl);
  event.target.value = '';
@@ -58,5 +66,17 @@ this.tasks.push(this.newtask);
 }
 
 
+toggleHandler = (event) => {
+  if(event.target.nodeName !== 'I'){
+      return
+  }
+const task = event.target.parentElement;
+  task.classList.toggle('completed');
+
+  logger.push({
+    action: 'toggle task',
+    task: task.innerText
+  })
+  }
 
 }
