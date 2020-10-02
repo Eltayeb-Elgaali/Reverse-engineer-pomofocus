@@ -11,7 +11,7 @@ export class Timer{
     timerType = 'pomodoro';
 
 
-constructor(currentTimeInput, startStopButton, pomodoroButton, shortBreakButton, longBreakButton, body,timerTypeLabel){
+constructor(currentTimeInput, startStopButton, pomodoroButton, shortBreakButton, longBreakButton, body,timerTypeLabel, taskInput){
 
     this.currentTimeInput = currentTimeInput;
     
@@ -21,6 +21,7 @@ constructor(currentTimeInput, startStopButton, pomodoroButton, shortBreakButton,
     this.longBreakButton = longBreakButton;
     this.body = body;
     this.timerTypeLabel = timerTypeLabel;
+    this.taskInput = taskInput;
 
         
         this.startStopButton.addEventListener('click', this.check);
@@ -204,6 +205,11 @@ getSeconds(str){
         this.body.classList.add("pomodoro");
         this.body.classList.remove('short-break');
         this.body.classList.remove('long-break');
+
+        this.taskInput.classList.add('pomodoro');
+        this.taskInput.classList.remove('short-break');
+        this.taskInput.classList.remove('long-break');
+
         this.pomodoroButton.classList.add('pomodoro-btn');
 
         this.pomodoroButton.classList.remove('reset');
@@ -240,6 +246,11 @@ getSeconds(str){
         this.body.classList.add('short-break');
         this.body.classList.remove('pomodoro');
         this.body.classList.remove('long-break');
+
+        this.taskInput.classList.add('short-break');
+        this.taskInput.classList.remove('pomodoro');
+        this.taskInput.classList.remove('long-break');
+
         this.shortBreakButton.classList.add('short-break-btn');
 
         this.shortBreakButton.classList.remove('reset');
@@ -272,6 +283,11 @@ getSeconds(str){
         this.body.classList.add('long-break');
         this.body.classList.remove('pomodoro');
         this.body.classList.remove('short-break');
+
+        this.taskInput.classList.add('long-break');
+        this.taskInput.classList.remove('pomodoro');
+        this.taskInput.classList.remove('short-break');
+
         this.longBreakButton.classList.add('long-break-btn');
 
         this.longBreakButton.classList.remove('reset');
