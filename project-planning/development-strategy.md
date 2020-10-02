@@ -109,13 +109,13 @@ __As a user I want to be able to delete tasks__
 
 ### JS
 
-#### DATA
-
-#### LISTENER
-
 #### HANDLER
 
-#### WIEW
+- Add delete handler to remove a task
+
+### CSS
+
+- Add some styling
 
 ---
 
