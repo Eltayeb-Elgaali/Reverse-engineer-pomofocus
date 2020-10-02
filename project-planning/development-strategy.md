@@ -119,30 +119,7 @@ __As a user I want to be able to delete tasks__
 
 ---
 
-## 5. User Story: Select task
-
-__As a user I want to be able to select a task to work on__
-
-- _Given I have initial page open I should be able to select a specific task to work on_
-
-### REPO
-
-- This user story is developed on branch `select-task`.
-- This branch is merged to `master` branch after completion.
-
-### JS
-
-#### DATA
-
-#### LISTENER
-
-#### HANDLER
-
-#### WIEW
-
----
-
-## 6. User Story: Start and stop timers
+## 5. User Story: Start and stop timers
 
 __As a user I want to be able to start timer and focus on the task for 25 minutes then take a break for 5 minutes when the alarm ring__
 
