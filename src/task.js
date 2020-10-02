@@ -25,7 +25,8 @@ render = () => {
   const iEl = document.createElement('i');
   iEl.classList.add('fas');
   iEl.classList.add('fa-trash-alt');
-  spanEl.appendChild(iEl)
+  spanEl.appendChild(iEl);
+  
   liEl.appendChild(spanEl);
   const iCheck = document.createElement('i');
   iCheck.classList.add('fas');
@@ -67,6 +68,18 @@ debugger;
 
 
 toggleHandler = (event) => {
+  if(event.target.parentElement.nodeName === 'SPAN'){
+    
+    const li = event.target.parentElement.parentElement;
+    const ul = li.parentElement;
+    ul.removeChild(li);
+
+    logger.push({
+      action: 'delete task',
+      event
+      
+    })
+  }
   if(event.target.nodeName !== 'I'){
       return
   }
@@ -75,8 +88,10 @@ const task = event.target.parentElement;
 
   logger.push({
     action: 'toggle task',
-    task: task.innerText
+    task: task.innerText,
+    event
   })
   }
+
 
 }
